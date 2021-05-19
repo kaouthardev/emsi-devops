@@ -1,6 +1,6 @@
 Host *
-    IdentityFile ~/.ssh/holberton
-    PasswordAuthentication no
-    HashKnownHosts yes
-    GSSAPIAuthentication yes
-    GSSAPIDelegateCredentials no
+	IdentityFile ~/.ssh/holberton
+	PasswordAuthentication no
+	HashKnownHosts yes
+	GSSAPIAuthentication yes
+	GSSAPIDelegateCredentials no
