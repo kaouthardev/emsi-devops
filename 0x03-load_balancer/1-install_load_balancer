@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Install nginx web server
+
+apt-get update
+apt-get install -y haproxy
+
+echo 'ENABLED=1' >>/etc/default/haproxy
+
+printf %s "global
+  log 127.0.0.1 local0
+  log 127.0.0.1 local0 notice
+  maxconn       2048
+  user          haproxy
+  group         haproxy
+  daemon
+
+defaults
+  log     global
+  mode    http
+  option  httpclose
+  option  httplog
+  option  dontlognull
+  retries 3
+  option  redispatch
+	timeout connect 5s
+	timeout client  30s
+	timeout server  30s
+	timeout queue   10s
+
+frontend lb_serv
+  bind  0.0.0.0:80
+  mode  http
+  default_backend app_server
+
+backend app_server
+    balance roundrobin
+    server  3173-web-01 35.185.99.249:80 check
+    server  3173-web-02 35.243.231.246:80 check
+" >/etc/haproxy/haproxy.cfg
+
+service haproxy restart
