@@ -16,4 +16,4 @@ def top_ten(subreddit):
         print('None')
     else:
         [print(child['data']['title'])
-         for child in req.json()['data']['children']
+         for child in req.json()['data']['children']]
